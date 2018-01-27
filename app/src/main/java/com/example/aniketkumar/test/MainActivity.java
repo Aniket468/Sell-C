@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -20,6 +21,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,11 +39,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -232,6 +236,11 @@ public class MainActivity extends AppCompatActivity {
             MenuItem mn;
             mn = navigationView.getMenu().getItem(0);
             mn.setChecked(true);
+
+            new BackgroundTask_profile().execute();
+
+
+
             ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openDrawer, R.string.closeDrawer) {
 
                 @Override
@@ -302,6 +311,7 @@ public class MainActivity extends AppCompatActivity {
         String logi=sp.getString("name",null);
         if(logi!=null)
         txtName.setText(logi);
+        Log.e("TAG",""+logi);
        // txtWebsite.setText("www.aniket.com");
 
 
@@ -316,12 +326,7 @@ public class MainActivity extends AppCompatActivity {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgNavHeaderBg);
         // Loading profile image
-        Glide.with(this).load(R.drawable.man)
-                .crossFade()
-                .thumbnail(0.5f)
-                .bitmapTransform(new CircleTransform(this))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(imgProfile);
+
         // showing dot next to logout label
         navigationView.getMenu().getItem(4).setActionView(R.layout.menu);
     }
@@ -387,6 +392,7 @@ public class MainActivity extends AppCompatActivity {
                         drawer.closeDrawers();
                         finish();
                         startActivity(new Intent(getApplicationContext(),Login_Activity.class));
+                        finish();
 //                        navigationView.getMenu().clear(); //clear old inflated items.
 //                        navigationView.inflateMenu(R.menu.nav_drawer_logged_out);
                         Toast.makeText(getApplicationContext(),"LoggedOut Successfully",Toast.LENGTH_SHORT).show();
@@ -430,25 +436,139 @@ public class MainActivity extends AppCompatActivity {
                     default:
                         navItemIndex = 0;
                 }
-                //Checking if the item is in checked state or not, if not make it in checked state
-
-//                if (menuItem.isChecked()) {
-//                    menuItem.setChecked(false);
-//                } else {
-//                    menuItem.setChecked(true);
-//                }
-                //menuItem.setChecked(true);
-
-
                 return true;
             }
         });
 
     }
+    private class BackgroundTask_profile extends AsyncTask<Void, Void, Void> {
+        String res;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            SharedPreferences sp;
+            sp=getApplicationContext().getSharedPreferences("Shared",MODE_PRIVATE);
+            String id=sp.getString("id",null);
+            String user_url="http://192.168.43.210/test_connection/getProfile.php";
+
+            try {
+                URL url =new URL(user_url);
+                Log.d("TAG","user");
+                HttpURLConnection httpURLConnection =(HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                Log.d("TAG","user");
+                httpURLConnection.setDoOutput(true);
+                Log.d("TAG","user");
+                OutputStream os=httpURLConnection.getOutputStream();
+                Log.d("TAG","user");
+                BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
+                Log.d("TAG","user");
+
+
+                String data= URLEncoder.encode("id","UTF-8")+"="+ URLEncoder.encode(id,"UTF-8");
 
 
 
 
+                Log.d("TAG",id);
+                Log.d("TAGG","data="+data);
+
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                InputStream is=new BufferedInputStream(httpURLConnection.getInputStream());
+                res=convertStreamToString(is);
+                Log.d("results","res="+res);
+
+            } catch (MalformedURLException e) {
+                Log.d("TAGG::","error1="+ e.toString());
+            } catch (Exception e) {
+                Log.d("TAGG::","error2="+ e.toString());
+            }
+
+
+
+            return null;
+        }
+      private String convertStreamToString(InputStream is) {
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            StringBuilder sb = new StringBuilder();
+
+            String line = null;
+            try {
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return sb.toString();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Log.d("TAG",""+res);
+            if(res!=null)
+            {
+                if(res.contains("Failed")) {
+                    Toast.makeText(getApplicationContext(), "Plz upload your profile pic :)",Toast.LENGTH_LONG).show();
+                    Glide.with(getApplicationContext()).load(R.drawable.man)
+                            .crossFade()
+                            .thumbnail(0.5f)
+                            .bitmapTransform(new CircleTransform(getApplicationContext()))
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .into(imgProfile);
+                }
+                else
+                {
+
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(res);
+                        String url=jsonObject.getString("url");
+                        Toast.makeText(getApplicationContext(),"setting nav_header images",Toast.LENGTH_SHORT).show();
+                        String im1="http://192.168.43.210/test_connection/"+url;
+                        
+                        Glide.with(getApplicationContext()).load(im1).crossFade()
+                                .thumbnail(0.5f)
+                                .bitmapTransform(new CircleTransform(getApplicationContext()))
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .into(imgProfile);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            }
+            else
+            {
+                Snackbar.make(linearLayout,"No internet Connection or \nServer not responding ",Snackbar.LENGTH_LONG).setAction("Retry", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new BackgroundTask_profile().execute();
+                    }
+                }).setActionTextColor(Color.RED).show();
+            }
+        }
+    }
 
 
 
@@ -581,15 +701,6 @@ public class MainActivity extends AppCompatActivity {
             try {
                 URL url =new URL(user_url);
                 HttpURLConnection httpURLConnection =(HttpURLConnection) url.openConnection();
-//                httpURLConnection.setRequestMethod("POST");
-//                httpURLConnection.setDoOutput(true);
-         //       OutputStream os=httpURLConnection.getOutputStream();
-//                BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
-//               // String data= URLEncoder.encode("ID","UTF-8")+"="+ URLEncoder.encode(id,"UTF-8");
-//                Log.d("TAGG","data="+data);
-//                bufferedWriter.write(data);
-//                bufferedWriter.flush();
-//                bufferedWriter.close();
                 InputStream is=new BufferedInputStream(httpURLConnection.getInputStream());
                 res=convertStreamToString(is);
                 Log.d("results","res="+res);

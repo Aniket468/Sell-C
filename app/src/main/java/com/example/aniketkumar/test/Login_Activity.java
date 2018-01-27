@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.icu.text.LocaleDisplayNames;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -91,6 +92,7 @@ public class Login_Activity extends AppCompatActivity {
         scrollView=findViewById(R.id.scroll);
         user_email=findViewById(R.id.emailid);
         password=findViewById(R.id.password);
+        forgot=findViewById(R.id.forgot);
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,6 +100,12 @@ public class Login_Activity extends AppCompatActivity {
 
                 finish();
 
+            }
+        });
+        forgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),forgot_pass.class));
             }
         });
 
@@ -288,11 +296,14 @@ public class Login_Activity extends AppCompatActivity {
                     String id=c.getString("id");
                     String name=c.getString("name");
                     String email=c.getString("email");
+                    String phone=c.getString("mobile");
+                    Log.d("Tag",phone+"");
                     SharedPreferences sharedpreferences = getApplicationContext().getSharedPreferences("Shared", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putString("id", id);
                     editor.putString("name", name);
                     editor.putString("email", email);
+                    editor.putString("mobile",phone);
                     editor.commit();
 
 

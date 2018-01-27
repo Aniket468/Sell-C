@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/ll"
     tools:context="com.example.aniketkumar.test.EditProfile">
     <TextView
         android:id="@+id/textView2"
@@ -51,8 +52,7 @@
             android:hint="Phone"
             android:paddingLeft="20dp"
             android:id="@+id/phone1"
-            android:paddingRight="20dp"
- />
+            android:paddingRight="20dp" />
 
         <Button
             android:id="@+id/done"
