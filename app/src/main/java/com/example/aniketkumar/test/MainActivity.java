@@ -100,6 +100,18 @@ public class MainActivity extends AppCompatActivity {
         MenuItem mn;
         mn=navigationView.getMenu().getItem(0);
         new BackgroundTask1().execute();
+        SharedPreferences sharedpreferences = getApplicationContext().getSharedPreferences("Shared", MODE_PRIVATE);
+        String p=sharedpreferences.getString("url",null);
+        if(p!=null)
+        {
+            Glide.with(getApplicationContext()).load(p)
+                    .crossFade()
+                    .thumbnail(0.5f)
+                    .bitmapTransform(new CircleTransform(getApplicationContext()))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(imgProfile);
+        }
+
         mn.setChecked(true);
 
     }
@@ -376,12 +388,7 @@ public class MainActivity extends AppCompatActivity {
                         CURRENT_TAG = TAG_DEALS;
                         startActivity(new Intent(MainActivity.this, My_deals.class));
                         drawer.closeDrawers();
-                        return true;
-                    case R.id.nav_app_tutorial:
-                        navItemIndex = 3;
-                        CURRENT_TAG = TAG_APP_TUTORIAL;
-
-                        break;
+                        return  true;
                     case R.id.nav_logout:
                         navItemIndex = 4;
                         sp=getApplicationContext().getSharedPreferences("Shared",MODE_PRIVATE);
@@ -540,11 +547,17 @@ public class MainActivity extends AppCompatActivity {
 
 
                     try {
+
+
                         JSONObject jsonObject = new JSONObject(res);
                         String url=jsonObject.getString("url");
                         Toast.makeText(getApplicationContext(),"setting nav_header images",Toast.LENGTH_SHORT).show();
                         String im1="http://192.168.43.210/test_connection/"+url;
-                        
+                        SharedPreferences sharedpreferences = getApplicationContext().getSharedPreferences("Shared", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.putString("url",im1);
+                        editor.commit();
+
                         Glide.with(getApplicationContext()).load(im1).crossFade()
                                 .thumbnail(0.5f)
                                 .bitmapTransform(new CircleTransform(getApplicationContext()))
@@ -596,11 +609,7 @@ public class MainActivity extends AppCompatActivity {
                         navItemIndex = 0;
                         drawer.closeDrawers();
                         break;
-                    case R.id.nav_app_tutorial:
-                        navItemIndex = 3;
-                        drawer.closeDrawers();
-                        CURRENT_TAG = TAG_APP_TUTORIAL;
-                        break;
+
                     case R.id.nav_logged_in:
                         startActivity(new Intent(MainActivity.this,Login_Activity.class));
                         Toast.makeText(getApplicationContext(),"Login Click",Toast.LENGTH_SHORT).show();

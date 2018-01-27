@@ -7,11 +7,6 @@
             android:icon="@drawable/home__1png"
             android:title="@string/nav_my_home" />
         <item
-            android:id="@+id/nav_app_tutorial"
-            android:icon="@drawable/tutorial"
-            android:title="@string/nav_app_tutorial" />
-
-        <item
             android:id="@+id/nav_logged_in"
             android:icon="@drawable/login"
             android:title="Login" />

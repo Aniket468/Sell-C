@@ -14,10 +14,6 @@
             android:id="@+id/nav_deals"
             android:icon="@drawable/dealpng"
             android:title="@string/nav_my_deals" />
-        <item
-            android:id="@+id/nav_app_tutorial"
-            android:icon="@drawable/tutorial"
-            android:title="@string/nav_app_tutorial" />
 
         <item
             android:id="@+id/nav_logout"

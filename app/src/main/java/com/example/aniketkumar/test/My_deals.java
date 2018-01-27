@@ -45,9 +45,9 @@ public class My_deals extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        MenuItem mn;
-        mn=navigationView.getMenu().getItem(2);
-        mn.setChecked(true);
+//        MenuItem mn;
+//        mn=navigationView.getMenu().getItem(2);
+//        mn.setChecked(true);
 
     }
 
@@ -59,75 +59,75 @@ public class My_deals extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mHandler = new Handler();
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navHeader = navigationView.getHeaderView(0);
-        txtName = (TextView) navHeader.findViewById(R.id.name);
-        imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
-        imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
-        MenuItem mn;
-        mn=navigationView.getMenu().getItem(2);
-        mn.setChecked(true);
-
-        activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openDrawer, R.string.closeDrawer) {
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
-                super.onDrawerClosed(drawerView);
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
-                super.onDrawerOpened(drawerView);
-            }
-        };
-
-        //Setting the actionbarToggle to drawer layout
-        drawer.setDrawerListener(actionBarDrawerToggle);
-
-        //calling sync state is necessary or else your hamburger icon wont show up
-        actionBarDrawerToggle.syncState();
-        // load nav menu header data
-        loadNavHeader();
-
-        // initializing navigation menu
-        setUpNavigationView();
     }
+//        navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        navHeader = navigationView.getHeaderView(0);
+//        txtName = (TextView) navHeader.findViewById(R.id.name);
+//        imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
+//        imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
+//        MenuItem mn;
+//        mn=navigationView.getMenu().getItem(2);
+//        mn.setChecked(true);
 
-    private void loadNavHeader() {
-        // name, website
-        sp=getApplicationContext().getSharedPreferences("Shared",MODE_PRIVATE);
-        String logi=sp.getString("name",null);
-        if(logi!=null)
-            txtName.setText(logi);
-
-        // loading header background image
-//        Glide.with(this).load(urlNavHeaderBg)
-//                .crossFade()
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .into(imgNavHeaderBg);
-
+//        activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openDrawer, R.string.closeDrawer) {
 //
-//        Glide
-//                .with(this)
-//                .load(R.drawable.image_default_profile_picture)
-//                .into(mUserImage);
-//        // Loading profile image
-//        Glide.with(this).load(urlProfileImg)
-//                .crossFade()
-//                .thumbnail(0.5f)
-//                .bitmapTransform(new CircleTransform(this))
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .into(imgProfile);
-        // showing dot next to notifications label
-        navigationView.getMenu().getItem(4).setActionView(R.layout.menu);
-        MenuItem mn;
-        mn=navigationView.getMenu().getItem(1);
-        mn.setChecked(true);
-
-    }
+//            @Override
+//            public void onDrawerClosed(View drawerView) {
+//                // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
+//                super.onDrawerClosed(drawerView);
+//            }
+//
+//            @Override
+//            public void onDrawerOpened(View drawerView) {
+//                // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
+//                super.onDrawerOpened(drawerView);
+//            }
+//        };
+//
+//        //Setting the actionbarToggle to drawer layout
+//        drawer.setDrawerListener(actionBarDrawerToggle);
+//
+//        //calling sync state is necessary or else your hamburger icon wont show up
+//        actionBarDrawerToggle.syncState();
+//        // load nav menu header data
+//        loadNavHeader();
+//
+//        // initializing navigation menu
+//        setUpNavigationView();
+//    }
+//
+//    private void loadNavHeader() {
+//        // name, website
+//        sp=getApplicationContext().getSharedPreferences("Shared",MODE_PRIVATE);
+//        String logi=sp.getString("name",null);
+//        if(logi!=null)
+//            txtName.setText(logi);
+//
+//        // loading header background image
+////        Glide.with(this).load(urlNavHeaderBg)
+////                .crossFade()
+////                .diskCacheStrategy(DiskCacheStrategy.ALL)
+////                .into(imgNavHeaderBg);
+//
+////
+////        Glide
+////                .with(this)
+////                .load(R.drawable.image_default_profile_picture)
+////                .into(mUserImage);
+////        // Loading profile image
+////        Glide.with(this).load(urlProfileImg)
+////                .crossFade()
+////                .thumbnail(0.5f)
+////                .bitmapTransform(new CircleTransform(this))
+////                .diskCacheStrategy(DiskCacheStrategy.ALL)
+////                .into(imgProfile);
+//        // showing dot next to notifications label
+//        navigationView.getMenu().getItem(4).setActionView(R.layout.menu);
+//        MenuItem mn;
+//        mn=navigationView.getMenu().getItem(1);
+//        mn.setChecked(true);
+//
+//    }
 
 
     private void setUpNavigationView() {
@@ -161,13 +161,7 @@ public class My_deals extends AppCompatActivity {
                         CURRENT_TAG = TAG_DEALS;
                         drawer.closeDrawers();
                         break;
-                    case R.id.nav_app_tutorial:
-                        navItemIndex = 2;
-                        CURRENT_TAG = TAG_APP_TUTORIAL;
-                        // startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
-                        //drawer.closeDrawers();
-                        //return true;
-                        break;
+
                     case R.id.nav_logout:
                         navItemIndex = 3;
                         CURRENT_TAG = TAG_LOGOUT;

@@ -51,6 +51,7 @@ public class Product_info extends AppCompatActivity {
     ImageView tvim1, tvim2, tvim3, call, mail;
     int REQUEST_PHONE_CALL = 1;
 
+    boolean isImageFitToScreen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +105,27 @@ public class Product_info extends AppCompatActivity {
         id = i.getStringExtra("id");
         sr = i.getStringExtra("sr");
         new BackgroundTask1().execute();
+
+
+//        tvim1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if(isImageFitToScreen) {
+//                   isImageFitToScreen=false;
+//             tvim1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+//                  tvim1.setAdjustViewBounds(true);
+//                }else{
+//                    isImageFitToScreen=true;
+//                    tvim1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+//                    tvim1.setScaleType(ImageView.ScaleType.FIT_XY);
+//                }
+//            }
+//        });
+
+
+
+
+
     }
 
 
