@@ -334,15 +334,15 @@ Bitmap bit1,bit2,bit3;
             ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
 
             ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
-            bit1.compress(Bitmap.CompressFormat.JPEG, 25, stream);
+            bit1.compress(Bitmap.CompressFormat.JPEG, 20, stream);
             //bit1.recycle();
            // bit1=null;
 
-            bit2.compress(Bitmap.CompressFormat.JPEG, 25, stream1);
+            bit2.compress(Bitmap.CompressFormat.JPEG, 20, stream1);
          //   bit2.recycle();
           //  bit2=null;
 
-            bit3.compress(Bitmap.CompressFormat.JPEG, 25, stream2);
+            bit3.compress(Bitmap.CompressFormat.JPEG, 20, stream2);
            // bit3.recycle();
         //    bit3=null;
 

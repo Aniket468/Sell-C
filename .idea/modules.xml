@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Sell-C.iml" filepath="$PROJECT_DIR$/Sell-C.iml" />
+      <module fileurl="file://C:\NETCAMP_ANDROID\Test\Sell-C.iml" filepath="C:\NETCAMP_ANDROID\Test\Sell-C.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Test.iml" filepath="$PROJECT_DIR$/Test.iml" />
       <module fileurl="file://C:\Users\Ankit\Desktop\Sell-C\Test.iml" filepath="C:\Users\Ankit\Desktop\Sell-C\Test.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://C:\Users\Ankit\Desktop\Sell-C\app\app.iml" filepath="C:\Users\Ankit\Desktop\Sell-C\app\app.iml" />

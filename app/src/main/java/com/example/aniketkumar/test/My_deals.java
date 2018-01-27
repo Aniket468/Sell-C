@@ -2,23 +2,51 @@ package com.example.aniketkumar.test;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 //import com.bumptech.glide.request.RequestOptions;
 
 public class My_deals extends AppCompatActivity {
@@ -29,13 +57,19 @@ public class My_deals extends AppCompatActivity {
     private TextView txtName, txtWebsite;
     private Toolbar toolbar;
     private FloatingActionButton fab;
+    LinearLayout linearLayoutprogress,container,refresh;
+    ProgressBar spinner;
+    ImageView refresh_button;
+    RecyclerView recyclerView;
     private String[] activityTitles;
+    LinearLayout li;
     private Handler mHandler;
     SharedPreferences sp;
     private static final String TAG_My_ACCOUNT = "my_account";
     private static final String TAG_DEALS = "my_deal";
     private static final String TAG_APP_TUTORIAL = "app_tutorial";
     private static final String TAG_LOGOUT = "logout";
+    Snackbar snackbar;
     private static final String TAG_FEEDBACK = "feedback";
     public static String CURRENT_TAG = TAG_My_ACCOUNT;
     private static final String urlNavHeaderBg = "R.drawable.tutorial";
@@ -45,9 +79,6 @@ public class My_deals extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-//        MenuItem mn;
-//        mn=navigationView.getMenu().getItem(2);
-//        mn.setChecked(true);
 
     }
 
@@ -56,78 +87,25 @@ public class My_deals extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//For FullScreen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_deals);
+        refresh_button=findViewById(R.id.refresh_button);
+        refresh=findViewById(R.id.refresh);
+        container=findViewById(R.id.container);
+        spinner=findViewById(R.id.progressBar);
+        linearLayoutprogress=findViewById(R.id.progress_layout);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mHandler = new Handler();
-    }
-//        navigationView = (NavigationView) findViewById(R.id.nav_view);
-//        navHeader = navigationView.getHeaderView(0);
-//        txtName = (TextView) navHeader.findViewById(R.id.name);
-//        imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
-//        imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
-//        MenuItem mn;
-//        mn=navigationView.getMenu().getItem(2);
-//        mn.setChecked(true);
+        li=findViewById(R.id.li);
+        recyclerView=findViewById(R.id.recyclerview_card);
+        refresh.setVisibility(View.GONE);
+        container.setVisibility(View.GONE);
+        linearLayoutprogress.setVisibility(View.VISIBLE);
+        spinner.setVisibility(View.VISIBLE);
+  new BackgroundTask1().execute();
 
-//        activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openDrawer, R.string.closeDrawer) {
-//
-//            @Override
-//            public void onDrawerClosed(View drawerView) {
-//                // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
-//                super.onDrawerClosed(drawerView);
-//            }
-//
-//            @Override
-//            public void onDrawerOpened(View drawerView) {
-//                // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
-//                super.onDrawerOpened(drawerView);
-//            }
-//        };
-//
-//        //Setting the actionbarToggle to drawer layout
-//        drawer.setDrawerListener(actionBarDrawerToggle);
-//
-//        //calling sync state is necessary or else your hamburger icon wont show up
-//        actionBarDrawerToggle.syncState();
-//        // load nav menu header data
-//        loadNavHeader();
-//
-//        // initializing navigation menu
-//        setUpNavigationView();
-//    }
-//
-//    private void loadNavHeader() {
-//        // name, website
-//        sp=getApplicationContext().getSharedPreferences("Shared",MODE_PRIVATE);
-//        String logi=sp.getString("name",null);
-//        if(logi!=null)
-//            txtName.setText(logi);
-//
-//        // loading header background image
-////        Glide.with(this).load(urlNavHeaderBg)
-////                .crossFade()
-////                .diskCacheStrategy(DiskCacheStrategy.ALL)
-////                .into(imgNavHeaderBg);
-//
-////
-////        Glide
-////                .with(this)
-////                .load(R.drawable.image_default_profile_picture)
-////                .into(mUserImage);
-////        // Loading profile image
-////        Glide.with(this).load(urlProfileImg)
-////                .crossFade()
-////                .thumbnail(0.5f)
-////                .bitmapTransform(new CircleTransform(this))
-////                .diskCacheStrategy(DiskCacheStrategy.ALL)
-////                .into(imgProfile);
-//        // showing dot next to notifications label
-//        navigationView.getMenu().getItem(4).setActionView(R.layout.menu);
-//        MenuItem mn;
-//        mn=navigationView.getMenu().getItem(1);
-//        mn.setChecked(true);
-//
-//    }
+
+
+    }
+
 
 
     private void setUpNavigationView() {
@@ -216,4 +194,195 @@ public class My_deals extends AppCompatActivity {
         });
 
     }
+
+
+    public  class BackgroundTask1 extends AsyncTask<String,Void,Void> {
+
+        String res;
+        String ID;
+        SharedPreferences sharedpreferences = getApplicationContext().getSharedPreferences("Shared", MODE_PRIVATE);
+        String id=sharedpreferences.getString("id",null);
+      //  Log.e("Tagg",""+id);
+
+        HashMap<String, String> contact = new HashMap<>();
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            refresh.setVisibility(View.GONE);
+            container.setVisibility(View.GONE);
+            linearLayoutprogress.setVisibility(View.VISIBLE);
+            spinner.setVisibility(View.VISIBLE);
+
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+
+            //  String id=params[0];
+            //ID=id;
+            String user_url="http://192.168.43.210/test_connection/myDeals.php";
+
+            //  Log.d("TAGG::",id);
+            try {
+                URL url =new URL(user_url);
+                HttpURLConnection httpURLConnection =(HttpURLConnection) url.openConnection();
+
+                httpURLConnection.setRequestMethod("POST");
+                Log.d("TAG","user");
+                httpURLConnection.setDoOutput(true);
+                Log.d("TAG","user");
+                OutputStream os=httpURLConnection.getOutputStream();
+                Log.d("TAG","user");
+                BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
+                Log.d("TAG","user");
+                String data= URLEncoder.encode("id","UTF-8")+"="+ URLEncoder.encode(id,"UTF-8");
+
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+
+                InputStream is=new BufferedInputStream(httpURLConnection.getInputStream());
+                res=convertStreamToString(is);
+                Log.d("results","res="+res);
+
+            } catch (MalformedURLException e) {
+                Log.d("TAGG::","error11="+ e.toString());
+            } catch (IOException e) {
+                Log.d("TAGG::","error22="+ e.toString());
+            }
+
+            return null;
+        }
+
+
+
+        private String convertStreamToString(InputStream is) {
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            StringBuilder sb = new StringBuilder();
+
+            String line = null;
+            try {
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return sb.toString();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            spinner.setVisibility(View.GONE);
+            Log.d("TAGGG",res+"a");
+            if(res!=null) {
+
+                container.setVisibility(View.VISIBLE);
+                //tv.setText(res);
+                if(snackbar!=null)
+                    snackbar.dismiss();
+                Log.e("RESULT", res);
+                try {
+                    JSONObject jsonObject=new JSONObject(res);
+                    Log.d("TAGG","Error 1");
+                    String check;
+                    check=jsonObject.getString("success");
+                    if(check.equals("1")) {
+
+
+                        JSONArray jsonArray = jsonObject.getJSONArray("cycles");
+                        Log.d("TAGG", "Error 2");
+                        List<Item_Data_Card> data = new ArrayList<>();
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jobject = jsonArray.getJSONObject(i);
+                            String name = jobject.getString("cycle_name");
+                            String des = jobject.getString("brand");
+                            String price = jobject.getString("price");
+                            String im = jobject.getString("image_url");
+                            String id=jobject.getString("sr");
+                            im="http://192.168.43.210/test_connection/"+im;
+                            String rupee=getResources().getString(R.string.Rs);
+
+
+
+
+                            data.add(new Item_Data_Card(im, name, des,rupee+" "+price,id));
+
+                        }
+
+
+                        RecyclerViewAdapter_card adapter = new RecyclerViewAdapter_card(data, getApplication());
+                        recyclerView.setAdapter(adapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(),"No Data Found on server",Toast.LENGTH_SHORT).show();
+                    }
+
+
+                    //parse
+
+
+                } catch (Exception e) {
+
+                    // showRefresh();
+                    //  Toast.makeText(getApplicationContext(),"Winners not yet announced",Toast.LENGTH_SHORT).show();
+                    snackbar = Snackbar.make(li,"Reload the page",Snackbar.LENGTH_INDEFINITE);
+                    snackbar.setAction("Close", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            snackbar.dismiss();
+
+                        }
+                    }).show();
+
+                    e.printStackTrace();
+
+                }
+            }
+            else
+            {
+                showRefresh();
+                snackbar = Snackbar.make(li,"No internet Connection or \nServer not responding ",Snackbar.LENGTH_INDEFINITE);
+                snackbar.setAction("Close", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        snackbar.dismiss();
+                    }
+                }).setActionTextColor(Color.RED).show();
+            }
+
+
+        }
+        private void showRefresh(){
+            container.setVisibility(View.GONE);
+            linearLayoutprogress.setVisibility(View.GONE);
+            refresh.setVisibility(View.VISIBLE);
+
+        }
+
+
+
+
+    }
+
+
 }

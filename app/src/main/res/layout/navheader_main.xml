@@ -16,33 +16,36 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:scaleType="fitXY"
-        android:src="@drawable/dealpng" />
+        android:src="@drawable/wooden" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerVertical="true"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:padding="@dimen/activity_horizontal_margin"
         android:id="@+id/linearLayout"
         android:weightSum="1">
 
         <ImageView
             android:id="@+id/img_profile"
-            android:layout_width="@dimen/profile_width"
-            android:layout_height="@dimen/profile_height"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
-            app:srcCompat="@android:drawable/sym_def_app_icon" />
+            app:srcCompat="@drawable/man" />
 
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="52dp"
+            android:layout_weight="0.16"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             android:text="User"
             android:textColor="#FFF"
-            android:textSize="25dp"
-            android:layout_weight="0.16" />
+            android:textSize="25dp" />
 
 
     </LinearLayout>
