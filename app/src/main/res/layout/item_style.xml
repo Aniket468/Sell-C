@@ -18,21 +18,25 @@
 
         <ImageView
             android:id="@+id/image123"
-            android:layout_width="80dp"
+            android:layout_width="120dp"
             android:layout_height="80dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true" />
+            android:scaleType="fitCenter"
+            android:layout_alignTop="@+id/name"
+            android:src="@drawable/bicycle"
+            android:layout_alignBottom="@+id/price"
+            android:layout_marginRight="10dp"
+            />
 
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/image123"
-            android:layout_marginLeft="18dp"
-            android:layout_marginStart="18dp"
-            android:layout_toEndOf="@+id/description"
-            android:layout_toRightOf="@+id/description"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="14dp"
+            android:textColor="#C0392B"
+            android:layout_marginStart="14dp"
+            android:layout_toEndOf="@+id/image123"
+            android:layout_toRightOf="@+id/image123"
             android:text="Cycle name"
             android:textSize="30sp" />
 
@@ -40,21 +44,24 @@
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/price"
-            android:textSize="15dp"
-            android:layout_toEndOf="@+id/image123"
+            android:layout_below="@id/name"
+            android:textColor="#6C3483"
+            android:layout_alignLeft="@id/name"
             android:layout_toRightOf="@+id/image123"
-            android:text="Brand" />
+            android:text="Brand"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:textSize="15dp"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/sr"
-            android:text="Price" />
+            android:layout_alignLeft="@+id/description"
+            android:layout_alignStart="@+id/description"
+            android:layout_below="@+id/description"
+            android:text="Price"
+            android:textColor="#000"
+            android:textSize="25dp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/sr"

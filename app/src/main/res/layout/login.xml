@@ -72,7 +72,9 @@
             android:layout_marginBottom="24dp"
             android:textColor="@color/loginPrimary"
             />
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
@@ -83,42 +85,22 @@
             android:text="Not a member yet. "
             android:textSize="18sp" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Not a member yet? Sign Up"
-            android:textSize="18sp"
-            android:gravity="center_horizontal"
-            android:textColor="#0606ed"
-            android:layout_marginBottom="24dp"
-
-            android:id="@+id/sign"
-            />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                android:id="@+id/withoutlogin"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/buttonnew"
-                android:text="Continue without login"
-                android:layout_marginTop="35dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-        </RelativeLayout>
-
         <TextView
             android:id="@+id/sign_link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="0.59"
             android:text="Sign Up"
             android:textColor="@color/loginPrimary"
-            android:textSize="18sp"
-            android:layout_weight="0.59" />
+            android:textSize="18sp" />
+        </LinearLayout>
+        <android.support.v7.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/withoutlogin"
+            android:textSize="20sp"
+            android:text="Continue without login"
+            android:layout_marginBottom="10dp"/>
 
     </LinearLayout>
 

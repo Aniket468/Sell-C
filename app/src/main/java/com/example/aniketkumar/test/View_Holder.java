@@ -16,7 +16,7 @@ public class View_Holder extends RecyclerView.ViewHolder {
     CardView cv;
     TextView title;
     TextView description;
-    TextView price,sr,id;
+    TextView price,sr,id,rupee;
     ImageView imageView;
     View_Holder(View itemView) {
         super(itemView);
@@ -25,6 +25,8 @@ public class View_Holder extends RecyclerView.ViewHolder {
         price=itemView.findViewById(R.id.price);
         id=itemView.findViewById(R.id.id);
         sr=itemView.findViewById(R.id.sr);
+        sr.setVisibility(View.GONE);
+        id.setVisibility(View.GONE);
         description = (TextView) itemView.findViewById(R.id.description);
         imageView = (ImageView) itemView.findViewById(R.id.image123);
     }

@@ -3,6 +3,7 @@
     package="com.example.aniketkumar.test">
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature
@@ -39,7 +40,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Selling_Activity" />
-        <activity android:name=".Product_info"></activity>
+        <activity android:name=".Product_info">
+        </activity>
     </application>
 
 </manifest>

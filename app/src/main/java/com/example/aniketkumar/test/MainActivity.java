@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     CoordinatorLayout coordinatorLayout;
     ProgressBar spinner;
     int log;
+    String logi;
     ImageView refresh_button;
     LinearLayout linearLayout,refresh;
     SharedPreferences sp;
@@ -99,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     public void onBackPressed() {
         //  super.onBackPressed();
@@ -120,8 +120,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        //  AlertDialog alert=builder.create();
-        //alert.show();
         builder.show();
     }
 
@@ -137,16 +135,24 @@ public class MainActivity extends AppCompatActivity {
         mHandler = new Handler();
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        imageButton = (ImageButton) findViewById(R.id.image1);
-        // Navigation view header
+
+        sp = getApplicationContext().getSharedPreferences("Shared", MODE_PRIVATE);
+        logi = sp.getString("name", null);
+        if (logi == null) {
+            navigationView.getMenu().clear(); //clear old inflated items.
+            navigationView.inflateMenu(R.menu.nav_drawer_logged_out);
+        }
+        else
+        {
+            navigationView.getMenu().clear(); //clear old inflated items.
+            navigationView.inflateMenu(R.menu.activity_drawer);
+        }
+
         coordinatorLayout = findViewById(R.id.coordinate);
         navHeader = navigationView.getHeaderView(0);
         txtName = (TextView) navHeader.findViewById(R.id.name);
-        txtWebsite = (TextView) navHeader.findViewById(R.id.website);
         imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
         imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
-        final EditText editText = (EditText) findViewById(R.id.editText1);
         sell = findViewById(R.id.sell_button);
         linearLayout = findViewById(R.id.layoutitem);
         textsr = findViewById(R.id.sr);
@@ -159,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
         refresh_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                snackbar.dismiss();
                 BackgroundTask1 bc = new BackgroundTask1();
                 bc.execute();
             }
@@ -192,19 +199,23 @@ public class MainActivity extends AppCompatActivity {
         // load toolbar titles from string resources
 
 
-
-
-
-
-
-
         recyclerView.addOnItemTouchListener(new CustomRVItemTouchListener(this, recyclerView, new RecyclerViewItemClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Intent i=new Intent(getApplicationContext(), Product_info.class);
-                i.putExtra("sr",((TextView)view.findViewById(R.id.sr)).getText().toString());
-                i.putExtra("id",((TextView)view.findViewById(R.id.id)).getText().toString());
-                startActivity(i);
+
+                sp = getApplicationContext().getSharedPreferences("Shared", MODE_PRIVATE);
+                String logi = sp.getString("name", null);
+                if (logi != null) {
+                    Intent i = new Intent(getApplicationContext(), Product_info.class);
+                    i.putExtra("sr", ((TextView) view.findViewById(R.id.sr)).getText().toString());
+                    i.putExtra("id", ((TextView) view.findViewById(R.id.id)).getText().toString());
+                    startActivity(i);
+                } else {
+                    Toast.makeText(getApplicationContext(), "You need to login first", Toast.LENGTH_LONG).show();
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), Login_Activity.class));
+
+                }
             }
 
             @Override
@@ -214,70 +225,83 @@ public class MainActivity extends AppCompatActivity {
         }));
 
 
+        if (logi != null) {
+            activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
 
 
+            MenuItem mn;
+            mn = navigationView.getMenu().getItem(0);
+            mn.setChecked(true);
+            ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openDrawer, R.string.closeDrawer) {
 
-
-
-        activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            String s1=editText.getText().toString();
-                if(s1.equals(""))
-                {
-                 Snackbar.make(view,"Enter Brand to search",Snackbar.LENGTH_LONG).setAction("Action",null).show();
-                }
-                else
-                {
-                    Intent intent =new Intent(getApplicationContext(),Search_activity.class);
-                    intent.putExtra("search",s1);
-                    startActivity(intent);
+                @Override
+                public void onDrawerClosed(View drawerView) {
+                    // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
+                    super.onDrawerClosed(drawerView);
                 }
 
-            }
-        });
+                @Override
+                public void onDrawerOpened(View drawerView) {
+                    // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
+                    super.onDrawerOpened(drawerView);
+                }
+            };
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "filter", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        MenuItem mn;
-        mn=navigationView.getMenu().getItem(0);
-        mn.setChecked(true);
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openDrawer, R.string.closeDrawer) {
+            //Setting the actionbarToggle to drawer layout
+            drawer.setDrawerListener(actionBarDrawerToggle);
 
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
-                super.onDrawerClosed(drawerView);
-            }
+            //calling sync state is necessary or else your hamburger icon wont show up
+            actionBarDrawerToggle.syncState();
+            // load nav menu header data
+            loadNavHeader();
 
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
-                super.onDrawerOpened(drawerView);
-            }
-        };
+            // initializing navigation menu
+            setUpNavigationView();
+        }
+        else
+        {
+            MenuItem mn;
+            mn = navigationView.getMenu().getItem(0);
+            mn.setChecked(true);
+            navigationView.setItemIconTintList(null);
 
-        //Setting the actionbarToggle to drawer layout
-        drawer.setDrawerListener(actionBarDrawerToggle);
+            ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openDrawer, R.string.closeDrawer) {
 
-        //calling sync state is necessary or else your hamburger icon wont show up
-        actionBarDrawerToggle.syncState();
-        // load nav menu header data
-        loadNavHeader();
 
-        // initializing navigation menu
-        setUpNavigationView();
+                @Override
+                public void onDrawerClosed(View drawerView) {
+                    // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
+                    super.onDrawerClosed(drawerView);
+                }
+
+                @Override
+                public void onDrawerOpened(View drawerView) {
+                    drawerView.bringToFront();
+                    // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
+                    super.onDrawerOpened(drawerView);
+                }
+            };
+            actionBarDrawerToggle.syncState();
+
+            //Setting the actionbarToggle to drawer layout
+            drawer.setDrawerListener(actionBarDrawerToggle);
+
+            //calling sync state is necessary or else your hamburger icon wont show up
+            actionBarDrawerToggle.syncState();
+            // load nav menu header data
+            loadNavHeader1();
+
+            // initializing navigation menu
+            setUpNavigationView1();
+        }
     }
 
     private void loadNavHeader() {
         // name, website
-        //txtName.setText("Aniket");
+        sp=getApplicationContext().getSharedPreferences("Shared",MODE_PRIVATE);
+        String logi=sp.getString("name",null);
+        if(logi!=null)
+        txtName.setText(logi);
        // txtWebsite.setText("www.aniket.com");
 
 
@@ -301,6 +325,20 @@ public class MainActivity extends AppCompatActivity {
         // showing dot next to logout label
         navigationView.getMenu().getItem(4).setActionView(R.layout.menu);
     }
+    private void loadNavHeader1()
+    {
+        Glide.with(getApplicationContext()).load(R.drawable.wooden).crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imgNavHeaderBg);
+        // Loading profile image
+        Glide.with(this).load(R.drawable.man)
+                .crossFade()
+                .thumbnail(0.5f)
+                .bitmapTransform(new CircleTransform(this))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imgProfile);
+    }
+
 
 
     private void setUpNavigationView() {
@@ -313,6 +351,7 @@ public class MainActivity extends AppCompatActivity {
             // This method will trigger on item Click of navigation menu
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
+
 
                 //Check to see which item was being clicked and perform appropriate action
                 switch (menuItem.getItemId()) {
@@ -344,9 +383,15 @@ public class MainActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = sp.edit();
                         editor.clear();
                         editor.commit();
+                        txtName.setText("user");
                         drawer.closeDrawers();
+                        finish();
+                        startActivity(new Intent(getApplicationContext(),Login_Activity.class));
+//                        navigationView.getMenu().clear(); //clear old inflated items.
+//                        navigationView.inflateMenu(R.menu.nav_drawer_logged_out);
                         Toast.makeText(getApplicationContext(),"LoggedOut Successfully",Toast.LENGTH_SHORT).show();
-                        break;
+                        return true;
+                        //break;
                     case R.id.nav_feedback:
                         navItemIndex = 5;
                         CURRENT_TAG = TAG_FEEDBACK;
@@ -405,6 +450,100 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
+
+
+
+
+    private void setUpNavigationView1() {
+        MenuItem mn;
+        mn=navigationView.getMenu().getItem(0);
+        mn.setChecked(true);
+        //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener()
+        {
+
+
+            // This method will trigger on item Click of navigation menu
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+
+                //Check to see which item was being clicked and perform appropriate action
+                switch (menuItem.getItemId()) {
+                    case R.id.nav_home:
+                        navItemIndex = 0;
+                        drawer.closeDrawers();
+                        break;
+                    case R.id.nav_app_tutorial:
+                        navItemIndex = 3;
+                        drawer.closeDrawers();
+                        CURRENT_TAG = TAG_APP_TUTORIAL;
+                        break;
+                    case R.id.nav_logged_in:
+                        startActivity(new Intent(MainActivity.this,Login_Activity.class));
+                        Toast.makeText(getApplicationContext(),"Login Click",Toast.LENGTH_SHORT).show();
+                        drawer.closeDrawers();
+                        break;
+
+                    case R.id.nav_feedback:
+                        navItemIndex = 5;
+                        CURRENT_TAG = TAG_FEEDBACK;
+                        startActivity(new Intent(getApplicationContext(), Feedback.class));
+                        drawer.closeDrawers();
+                        //return true;
+                        break;
+//abc//cghsx
+
+                    case R.id.nav_about_us:
+                        // launch new intent instead of loading fragment
+                        startActivity(new Intent(getApplicationContext(), About_us.class));
+                        drawer.closeDrawers();
+                       // return true;
+                        break;
+                    case R.id.nav_rateus:
+                        String url = "https://play.google.com/store/apps/details?id=com.mnnit.athleticmeet&hl=en";
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        drawer.closeDrawers();
+                        startActivity(i);
+                       // return true;
+                        break;
+                    case R.id.nav_share:
+                        try {
+                            Intent i1 = new Intent(Intent.ACTION_SEND);
+                            i1.setType("text/plain");
+                            i1.putExtra(Intent.EXTRA_SUBJECT, "SELL-C");
+                            String sAux = "\nDownload the Sell-C App for Selling and Buying Cycle At MNNIT Campus \n\n";
+                            sAux = sAux + "https://play.google.com/store/apps/details?id=com.mnnit.athleticmeet&hl=en \n\n";
+                            i1.putExtra(Intent.EXTRA_TEXT, sAux);
+                            startActivity(Intent.createChooser(i1, "choose one"));
+                        } catch(Exception e) {
+                            //e.toString();
+                        }
+                        drawer.closeDrawers();
+                       // return  true;
+                        break;
+
+                    default:
+                        navItemIndex = 0;
+                }
+                //Checking if the item is in checked state or not, if not make it in checked state
+
+//                if (menuItem.isChecked()) {
+//                    menuItem.setChecked(false);
+//                } else {
+//                    menuItem.setChecked(true);
+//                }
+                //menuItem.setChecked(true);
+
+
+                return true;
+            }
+        });
+
+    }
 
 
 
@@ -502,6 +641,8 @@ public class MainActivity extends AppCompatActivity {
             if(res!=null) {
 
                 //tv.setText(res);
+                if(snackbar!=null)
+                snackbar.dismiss();
                 Log.e("RESULT", res);
                 try {
                     JSONObject jsonObject=new JSONObject(res);
@@ -524,7 +665,12 @@ public class MainActivity extends AppCompatActivity {
                             String im = jobject.getString("image_url");
                             String id=jobject.getString("id");
                             im="http://192.168.43.210/test_connection/"+im;
-                            data.add(new ItemData(im, name, des, price,sr,id));
+                            String rupee=getResources().getString(R.string.Rs);
+
+
+
+
+                            data.add(new ItemData(im, name, des,rupee+" "+price,sr,id));
 
                         }
 
@@ -587,23 +733,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 

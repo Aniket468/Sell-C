@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     android:id="@+id/product_scroll">
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <TextView
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-        android:background="@color/primary"
-        android:text="Sell - C "
-       />
 
-    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/container">
-
-    <LinearLayout
+      <TextView
+         android:layout_width="match_parent"
+         android:layout_height="50dp"
+         android:text="Sell-C"
+         android:textColor="#FFF"
+         android:background="@color/primary"
+         android:gravity="center"
+         android:textSize="30dp"/>
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -33,7 +36,8 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="45sp"
+            android:textSize="50sp"
+            android:textColor="#ff9100"
             android:text="Cycle_name"
             android:layout_marginBottom="25dp"
         />
@@ -44,7 +48,7 @@
             android:orientation="horizontal">
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="120dp"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
                 android:id="@+id/image1"
@@ -52,15 +56,17 @@
                 />
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="120dp"
                 android:layout_weight="1"
+                android:layout_marginLeft="10dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/camera"
                 android:id="@+id/image2"/>
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="120dp"
                 android:src="@drawable/camera"
+                android:layout_marginLeft="10dp"
                 android:scaleType="centerCrop"
                 android:id="@+id/image3"
                 android:layout_weight="1"/>
@@ -203,12 +209,14 @@
             android:layout_marginTop="15dp"
             >
             <ImageView
+                android:id="@+id/call"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginLeft="30dp"
                 android:src="@drawable/mobilephone"
                 android:layout_alignParentLeft="true"/>
             <ImageView
+                android:id="@+id/mail"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginRight="40dp"
@@ -216,7 +224,10 @@
                 android:src="@drawable/email"/>
         </RelativeLayout>
     </LinearLayout>
-        <LinearLayout
+    </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -236,7 +247,6 @@
                 android:progressDrawable="@drawable/progress_circular" />
 
         </LinearLayout>
-    </LinearLayout>
 
-</ScrollView>
 
+</LinearLayout>

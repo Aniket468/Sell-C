@@ -1,6 +1,7 @@
 package com.example.aniketkumar.test;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -43,6 +44,7 @@ public class My_account extends AppCompatActivity {
     private static final String urlProfileImg = "R.drawable.account";
     public static int navItemIndex = 0;
     TextView name,email,phone;
+    SharedPreferences sp;
     String name1,phone1,email1;
     Button edit;
 
@@ -88,7 +90,6 @@ public class My_account extends AppCompatActivity {
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navHeader = navigationView.getHeaderView(0);
         txtName = (TextView) navHeader.findViewById(R.id.name);
-        txtWebsite = (TextView) navHeader.findViewById(R.id.website);
         imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
         imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
         MenuItem mn;
@@ -124,9 +125,10 @@ public class My_account extends AppCompatActivity {
 
     private void loadNavHeader() {
         // name, website
-        txtName.setText("Aniket");
-        txtWebsite.setText("www.aniket.com");
-
+        sp=getApplicationContext().getSharedPreferences("Shared",MODE_PRIVATE);
+        String logi=sp.getString("name",null);
+        if(logi!=null)
+            txtName.setText(logi);
         // loading header background image
         Glide.with(this).load(urlNavHeaderBg)
                 .crossFade()

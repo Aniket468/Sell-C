@@ -39,20 +39,11 @@
             android:layout_width="wrap_content"
             android:layout_height="52dp"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
-            android:text="Aniket Kumar"
-
-            android:textColor="@color/colorPrimaryDark"
+            android:text="User"
+            android:textColor="#FFF"
             android:textSize="25dp"
             android:layout_weight="0.16" />
 
-        <TextView
-
-            android:id="@+id/website"
-            android:text="www.abk.com"
-            android:textColor="#0c63e4"
-            android:textSize="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp" />
 
     </LinearLayout>
 </RelativeLayout>

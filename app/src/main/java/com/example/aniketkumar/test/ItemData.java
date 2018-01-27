@@ -6,7 +6,7 @@ package com.example.aniketkumar.test;
 
 
 public class ItemData {
-    public String title,description,price,sr,id;
+    public String title,description,price,sr,id,rupee;
     public String imageId;
 
 

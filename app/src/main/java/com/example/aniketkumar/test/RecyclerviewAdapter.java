@@ -3,6 +3,7 @@ package com.example.aniketkumar.test;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -51,6 +52,10 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<View_Holder> {
 
         //Use the provided View Holder on the onCreateViewHolder method to populate the current row on the RecyclerView
         holder.title.setText(list.get(position).title);
+        if(position%2==0)
+        holder.cv.setCardBackgroundColor(Color.parseColor("#58D68D"));
+        else
+            holder.cv.setCardBackgroundColor(Color.parseColor("#FAD7A0"));
 
 //        Glide.with(context).load(list.get(position).imageId)
 //                .crossFade()
@@ -63,6 +68,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<View_Holder> {
       //  holder.imageView.setImageBitmap(getBitmapFromURL(list.get(position).imageId));
 
        // holder.imageView.setImageResource(list.get(position).imageId);
+
         holder.description.setText(list.get(position).description);
         holder.price.setText(list.get(position).price);
         holder.id.setText(list.get(position).id);

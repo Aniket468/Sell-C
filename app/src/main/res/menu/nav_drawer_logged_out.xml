@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home__1png"
+            android:title="@string/nav_my_home" />
+        <item
+            android:id="@+id/nav_app_tutorial"
+            android:icon="@drawable/tutorial"
+            android:title="@string/nav_app_tutorial" />
+
+        <item
+            android:id="@+id/nav_logged_in"
+            android:icon="@drawable/login"
+            android:title="Login" />
+
+    </group>
+
+    <item android:title="Other">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:title="Share..." />
+            <item
+                android:id="@+id/nav_rateus"
+                android:title="Rate us" />
+            <item
+                android:id="@+id/nav_feedback"
+                android:title="@string/nav_feedback" />
+            <item
+                android:id="@+id/nav_about_us"
+                android:title="@string/nav_about_us" />
+        </menu>
+    </item>
+
+</menu>

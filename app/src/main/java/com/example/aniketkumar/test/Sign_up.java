@@ -84,11 +84,11 @@ public class Sign_up extends AppCompatActivity {
         if(!validate())
         {
             sign_up_failed();
-            sign_up.setEnabled(true);
+           // sign_up.setEnabled(true);
         }
         else
         {
-            sign_up.setEnabled(false);
+         //   sign_up.setEnabled(false);
             BackgroundTask backgroundTask=new BackgroundTask();
             backgroundTask.execute(user_name,user_email,user_password,user_phone);
 
@@ -196,8 +196,38 @@ public class Sign_up extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
 
             super.onPostExecute(aVoid);
-            if (result != null)
+            if (result != null) {
                 Log.d("TAG", result);
+                if(result.contains("Duplicate"))
+                {
+                    Snackbar snackbar = Snackbar
+                            .make(scrollView, result, Snackbar.LENGTH_LONG);
+                    View sbView = snackbar.getView();
+                    TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(Color.RED);
+                    snackbar.show();
+                }
+                else if(result.contains("Failed"))
+                {
+
+                    Snackbar snackbar = Snackbar
+                            .make(scrollView,"Could not retrieve your request ", Snackbar.LENGTH_LONG);
+                    View sbView = snackbar.getView();
+                    TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(Color.RED);
+                    snackbar.show();
+
+                }
+                else if(result.contains("Successful"))
+                {
+                    Toast.makeText(getApplicationContext(),"Account Created Succesfully :) ",Toast.LENGTH_LONG).show();
+                    finish();
+                    startActivity(new Intent(getApplicationContext(),Login_Activity.class));
+
+                }
+
+
+            }
             else
             {
                 Log.d("Tag","null");

@@ -22,5 +22,17 @@
         <item>Logout</item>
         <item>Feedback</item>
     </string-array>
+
+    <string-array name="nav_item_activity_titles_logged_out">
+        <item>My Home</item>
+        <item>My Account</item>
+        <item>My Deals</item>
+        <item>App Tutorial</item>
+        <item>Logout</item>
+        <item>Feedback</item>
+    </string-array>
+
+
+
     <string name="Rs">\u20B9</string>
 </resources>

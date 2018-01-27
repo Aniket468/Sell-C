@@ -1,6 +1,7 @@
 package com.example.aniketkumar.test;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -30,6 +31,7 @@ public class My_deals extends AppCompatActivity {
     private FloatingActionButton fab;
     private String[] activityTitles;
     private Handler mHandler;
+    SharedPreferences sp;
     private static final String TAG_My_ACCOUNT = "my_account";
     private static final String TAG_DEALS = "my_deal";
     private static final String TAG_APP_TUTORIAL = "app_tutorial";
@@ -61,7 +63,6 @@ public class My_deals extends AppCompatActivity {
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navHeader = navigationView.getHeaderView(0);
         txtName = (TextView) navHeader.findViewById(R.id.name);
-        txtWebsite = (TextView) navHeader.findViewById(R.id.website);
         imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
         imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
         MenuItem mn;
@@ -97,8 +98,10 @@ public class My_deals extends AppCompatActivity {
 
     private void loadNavHeader() {
         // name, website
-        txtName.setText("Aniket");
-        txtWebsite.setText("www.aniket.com");
+        sp=getApplicationContext().getSharedPreferences("Shared",MODE_PRIVATE);
+        String logi=sp.getString("name",null);
+        if(logi!=null)
+            txtName.setText(logi);
 
         // loading header background image
 //        Glide.with(this).load(urlNavHeaderBg)
