@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/backsell"
     tools:context="com.example.aniketkumar.test.Selling_Activity">
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +37,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:background="@drawable/bottomborder"
+                    android:textColorHint="#8b0808"
                     android:hint="Cycle Name"
+
                     android:inputType="textPersonName"
                     android:padding="5dp" />
             </LinearLayout>
@@ -52,6 +56,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/bottomborder"
+                    android:textColorHint="#8b0808"
                     android:ems="10"
                     android:hint="Enter Brand"
                     android:inputType="textPersonName"
@@ -69,6 +75,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:background="@drawable/bottomborder"
+                    android:textColorHint="#8b0808"
                     android:hint="Enter used year"
                     android:inputType="textPersonName"
                     android:padding="5dp" />
@@ -87,6 +95,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:background="@drawable/bottomborder"
+                    android:textColorHint="#8b0808"
                     android:hint="Enter Selling price"
                     android:inputType="textPersonName"
                     android:padding="5dp" />
@@ -98,6 +108,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:background="@drawable/bottomborder"
+                android:textColorHint="#8b0808"
                 android:hint="Hostel name:-"
                 android:paddingLeft="10dp" />
 
@@ -106,6 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="#000000"
                 android:text="Extra Features:---"
                 android:textSize="20dp" />
 
@@ -154,6 +167,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="#000000"
+                android:textColorHint="#8b0808"
                 android:hint="*if any other mention here.. " />
 
             <LinearLayout
@@ -169,6 +184,7 @@
                     android:layout_height="100dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
+                    android:background="@drawable/ss"
                     android:scaleType="centerCrop" />
 
                 <ImageView
@@ -177,6 +193,7 @@
                     android:layout_height="100dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
+                    android:background="@drawable/ss"
                     android:scaleType="centerCrop"
 
                     />
@@ -187,6 +204,7 @@
                     android:layout_height="100dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
+                    android:background="@drawable/ss"
                     android:scaleType="centerCrop"
 
                     />
@@ -199,6 +217,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:gravity="center"
+                android:background="@drawable/roundedbutton"
                 android:text="Submit" />
 
         </LinearLayout>
