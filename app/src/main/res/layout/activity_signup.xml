@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+
+    tools:context="com.example.aniketkumar.test.Signup">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="40dp"
+        android:orientation="vertical"
+        android:background="@color/primary"
+        android:paddingRight="40dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_gravity="center"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Sign Up"
+            android:textSize="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_height="68dp"
+        android:layout_width="match_parent"
+        android:id="@+id/textInputLayout">
+        <android.support.design.widget.TextInputEditText
+            android:layout_height="57dp"
+            android:layout_width="match_parent"
+            android:hint="Name"
+            android:id="@+id/name"
+            android:layout_marginTop="50dp"
+            android:textSize="25dp"
+            android:inputType="text"
+            />
+    </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_height="68dp"
+            android:layout_width="match_parent"
+            android:id="@+id/textInputLayout12">
+            <android.support.design.widget.TextInputEditText
+                android:layout_height="57dp"
+                android:layout_width="match_parent"
+                android:hint="Mobile number"
+                android:id="@+id/mobile"
+                android:layout_marginTop="50dp"
+                android:textSize="25dp"
+                android:inputType="text"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/textInputLayout1">
+            <android.support.design.widget.TextInputEditText
+                android:layout_height="49dp"
+                android:layout_width="match_parent"
+                android:hint="Email-ID"
+                android:id="@+id/emailid"
+                android:textSize="25dp"
+                android:layout_marginTop="25dp"
+                android:inputType="textEmailAddress"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_height="66dp"
+        android:layout_width="match_parent"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/accent"
+
+
+        android:id="@+id/textInputLayout2">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:hint="Password"
+            android:layout_marginTop="25dp"
+            android:textSize="25dp"
+            android:id="@+id/password"
+            android:inputType="textPassword"/>
+    </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/accent"
+
+
+            android:id="@+id/textInputLayout3">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:hint="Confirm Password"
+                android:textSize="25dp"
+                android:layout_marginTop="25dp"
+                android:id="@+id/cpassword"
+                android:inputType="textPassword"/>
+        </android.support.design.widget.TextInputLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Signup"
+            android:textColor="#f7f7f7"
+            android:background="@drawable/buttonnew"
+            android:gravity="center"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</ScrollView>

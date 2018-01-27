@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Test</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+
+    <!-- Navigation Drawer menu labels -->
+    <string name="nav_my_home">My Home</string>
+    <string name="nav_my_account">My Account</string>
+    <string name="nav_my_deals">My Deals</string>
+    <string name="nav_app_tutorial">App Tutorial</string>
+    <string name="nav_logout">Logout</string>
+    <string name="nav_feedback">Feedback</string>
+    <string name="nav_about_us">About Us</string>
+    <!-- Toolbar titles when navigation menu item is selected -->
+    <string-array name="nav_item_activity_titles">
+        <item>My Home</item>
+        <item>My Account</item>
+        <item>My Deals</item>
+        <item>App Tutorial</item>
+        <item>Logout</item>
+        <item>Feedback</item>
+    </string-array>
+    <string name="Rs">\u20B9</string>
+</resources>

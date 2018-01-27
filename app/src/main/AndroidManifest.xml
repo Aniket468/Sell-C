@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.aniketkumar.test">
+
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".Login_Activity"
+            android:theme="@style/AppTheme.Dark"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".My_account" />
+        <activity android:name=".My_deals" />
+        <activity android:name=".EditProfile" />
+        <activity android:name=".Feedback" />
+        <activity
+            android:name=".Sign_up"
+            android:theme="@style/AppTheme.Dark" />
+        <activity android:name=".About_us" />
+        <activity android:name=".Search_activity" />
+        <activity android:name=".WelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Selling_Activity" />
+        <activity android:name=".Product_info"></activity>
+    </application>
+
+</manifest>

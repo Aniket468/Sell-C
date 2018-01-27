@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.aniketkumar.test.Search_activity">
+
+    <TextView
+        android:id="@+id/textView_search"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimary"
+        android:textColor="#f7f7f7"
+        android:textSize="20dp"
+
+        android:paddingTop="15dp"
+        tools:layout_editor_absoluteX="-12dp"
+        tools:layout_editor_absoluteY="16dp" />
+</LinearLayout>
