@@ -88,12 +88,10 @@ public class MainActivity extends AppCompatActivity {
     // tags used to attach the intent
     private static final String TAG_My_ACCOUNT = "my_account";
     private static final String TAG_DEALS = "my_deal";
-    private static final String TAG_APP_TUTORIAL = "app_tutorial";
     private static final String TAG_LOGOUT = "logout";
     private static final String TAG_FEEDBACK = "feedback";
     public static String CURRENT_TAG = TAG_My_ACCOUNT;
-    private static final String urlNavHeaderBg = "https://api.androidhive.info/images/glide/medium/deadpool.jpg";
-    private static final String urlProfileImg = "https://static.pexels.com/photos/46710/pexels-photo-46710.jpeg";
+
     @Override
     protected void onPostResume() {
         super.onPostResume();
@@ -324,16 +322,6 @@ public class MainActivity extends AppCompatActivity {
         if(logi!=null)
         txtName.setText(logi);
         Log.e("TAG",""+logi);
-       // txtWebsite.setText("www.aniket.com");
-
-
-
-
-//        Glide.with(this)
-//                .load(urlNavHeaderBg).crossFade()
-//                .into(imgNavHeaderBg);
-
-        // loading header background image
         Glide.with(getApplicationContext()).load(R.drawable.wooden).crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgNavHeaderBg);

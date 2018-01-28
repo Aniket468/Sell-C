@@ -4,6 +4,8 @@ package com.example.aniketkumar.test;
  * Created by Aniket Kumar on 28-Jan-18.
  */
 
+// The data structure of a particular card view to be shown in the listing
+
 public class Item_Data_Card {
     public String title, description, price, sr, id, rupee;
     public String imageId;

@@ -59,12 +59,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
 
+
         android:id="@+id/refresh">
 
         <ImageView
             android:id="@+id/refresh_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_gravity="center|center_vertical"
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"

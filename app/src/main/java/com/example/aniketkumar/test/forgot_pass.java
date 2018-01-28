@@ -34,6 +34,8 @@ import java.util.HashMap;
  * Created by MNNIT on 1/14/2018.
  */
 
+// a java file for the forgot password activity handling
+
 public class forgot_pass extends AppCompatActivity {
     EditText email,phone;
     TextView forgot;
@@ -82,10 +84,8 @@ public class forgot_pass extends AppCompatActivity {
     {
         String user_email=email.getText().toString();
         String user_phone=phone.getText().toString();
-      //  if(validate(user_email,user_phone)) {
             BackgroundTask12 backgroundTask12 = new BackgroundTask12();
             backgroundTask12.execute(email1, phone1);
-      //  }
         return;
     }
 
@@ -126,8 +126,6 @@ public class forgot_pass extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            //spinner.setVisibility(View.VISIBLE);
-
         }
 
         @Override

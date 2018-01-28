@@ -57,24 +57,16 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<View_Holder> {
         else
             holder.cv.setCardBackgroundColor(Color.parseColor("#FAD7A0"));
 
-//        Glide.with(context).load(list.get(position).imageId)
-//                .crossFade()
-//                .thumbnail(0.5f)
-//                .bitmapTransform(new CircleTransform(context))
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .into(holder.imageView);
+
         ImageLoadTask imageLoadTask =new ImageLoadTask(list.get(position).imageId,holder.imageView);
         imageLoadTask.execute();
-      //  holder.imageView.setImageBitmap(getBitmapFromURL(list.get(position).imageId));
 
-       // holder.imageView.setImageResource(list.get(position).imageId);
 
         holder.description.setText(list.get(position).description);
         holder.price.setText(list.get(position).price);
         holder.id.setText(list.get(position).id);
         holder.sr.setText(list.get(position).sr);
 
-       // animate(holder);
 
     }
     public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
@@ -137,9 +129,6 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<View_Holder> {
         list.remove(position);
         notifyItemRemoved(position);
     }
-//    public void animate(RecyclerView.ViewHolder viewHolder) {
-//        final Animation animAnticipateOvershoot = AnimationUtils.loadAnimation(context, R.anim.slide);
-//        viewHolder.itemView.setAnimation(animAnticipateOvershoot);
-//    }
+
 
 }

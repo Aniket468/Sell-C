@@ -16,6 +16,8 @@ import java.security.MessageDigest;
  * Created by Aniket Kumar on 10-Jan-18.
  */
 
+//  a java file to convert the image in the circular form
+
 public class CircleTransform extends BitmapTransformation {
     public CircleTransform(Context context) {
         super(context);

@@ -83,9 +83,6 @@ public class My_account extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-//        MenuItem mn;
-//        mn=navigationView.getMenu().getItem(1);
-//        mn.setChecked(true);
 
     }
 
@@ -202,12 +199,6 @@ public class My_account extends AppCompatActivity {
         mHandler = new Handler();
 
 
-       // txtWebsite = (TextView) navHeader.findViewById(R.id.website);
-//        imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
-//        imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
-//        MenuItem mn;
-//        mn=navigationView.getMenu().getItem(1);
-//        mn.setChecked(true);
 
     }
 
@@ -251,9 +242,7 @@ public class My_account extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-//            container.setVisibility(View.GONE);
-//            progress.setVisibility(View.VISIBLE);
-//            progressBar.setVisibility(View.VISIBLE);
+
 
         }
 

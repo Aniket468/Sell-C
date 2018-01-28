@@ -9,7 +9,7 @@ import android.graphics.Bitmap;
         import android.graphics.Rect;
         import android.graphics.RectF;
 
-/*adopted from http://ruibm.com/2009/06/16/rounded-corner-bitmaps-on-android/*/
+        // A java class for the desired conversion of the image in bitamp circular
 
 public class ImageConverter {
 

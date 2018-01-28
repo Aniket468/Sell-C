@@ -22,7 +22,6 @@ public class WelcomeActivity extends AppCompatActivity {
         iv=(ImageView)findViewById(R.id.img);
 
         tv=(TextView)findViewById(R.id.sell);
-      //  Animation ani= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.welcome_animation);
 
         Handler mhandler =new Handler();
 

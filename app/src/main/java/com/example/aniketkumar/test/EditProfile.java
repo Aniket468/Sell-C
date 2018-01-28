@@ -37,6 +37,8 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 
+// a JAVA file for the edit profile section of the app where the user can update his/her information
+
 public class EditProfile extends AppCompatActivity {
     String name, email, phone, name1, email1, phone1;
     EditText ename, ephone, eemail;
@@ -77,7 +79,6 @@ public class EditProfile extends AppCompatActivity {
                }
                else{
                 go();}
-               // startActivity(new Intent(getApplicationContext(), My_account.class));
             }
         });
 
@@ -141,17 +142,13 @@ public class EditProfile extends AppCompatActivity {
                 httpURLConnection.disconnect();
                 Log.d("TAG", res + "");
             } catch (MalformedURLException e) {
-         //       Toast.makeText(getApplicationContext(),"error1",Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             } catch (UnsupportedEncodingException e) {
-         //       Toast.makeText(getApplicationContext(),"error2",Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             } catch (ProtocolException e) {
                 e.printStackTrace();
-         //       Toast.makeText(getApplicationContext(),"error3",Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 e.printStackTrace();
-           //     Toast.makeText(getApplicationContext(),"error4",Toast.LENGTH_SHORT).show();
             }
             return null;
         }

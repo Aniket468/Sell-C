@@ -101,6 +101,13 @@ public class My_deals extends AppCompatActivity {
         linearLayoutprogress.setVisibility(View.VISIBLE);
         spinner.setVisibility(View.VISIBLE);
   new BackgroundTask1().execute();
+  refresh_button.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+          refresh_button.setVisibility(View.GONE);
+          new BackgroundTask1().execute();
+      }
+  });
 
 
 
@@ -158,7 +165,7 @@ public class My_deals extends AppCompatActivity {
                         return true;
 
                     case R.id.nav_rateus:
-                        String url = "https://play.google.com/store/apps/details?id=com.mnnit.athleticmeet&hl=en";
+                        String url = "https://play.google.com/store/apps/details?id=com.mnnit.athleticmeet&hl=en";    //ideal link
                         drawer.closeDrawers();
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(url));
@@ -171,7 +178,7 @@ public class My_deals extends AppCompatActivity {
                             i1.setType("text/plain");
                             i1.putExtra(Intent.EXTRA_SUBJECT, "SELL-C");
                             String sAux = "\nDownload the Sell-C App for Selling and Buying Cycle At MNNIT Campus \n\n";
-                            sAux = sAux + "https://play.google.com/store/apps/details?id=com.mnnit.athleticmeet&hl=en \n\n";
+                            sAux = sAux + "https://play.google.com/store/apps/details?id=com.mnnit.athleticmeet&hl=en \n\n";  //ideal link
                             i1.putExtra(Intent.EXTRA_TEXT, sAux);
                             startActivity(Intent.createChooser(i1, "choose one"));
                         } catch(Exception e) {
@@ -183,13 +190,9 @@ public class My_deals extends AppCompatActivity {
                     default:
                         navItemIndex = 0;
                 }
-                //Checking if the item is in checked state or not, if not make it in checked state
-
-
-                //menuItem.setChecked(true);
-
 
                 return true;
+
             }
         });
 
@@ -202,9 +205,9 @@ public class My_deals extends AppCompatActivity {
         String ID;
         SharedPreferences sharedpreferences = getApplicationContext().getSharedPreferences("Shared", MODE_PRIVATE);
         String id=sharedpreferences.getString("id",null);
-      //  Log.e("Tagg",""+id);
 
         HashMap<String, String> contact = new HashMap<>();
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -218,11 +221,10 @@ public class My_deals extends AppCompatActivity {
         @Override
         protected Void doInBackground(String... params) {
 
-            //  String id=params[0];
-            //ID=id;
+            //link for the localhost
+
             String user_url="http://192.168.43.210/test_connection/myDeals.php";
 
-            //  Log.d("TAGG::",id);
             try {
                 URL url =new URL(user_url);
                 HttpURLConnection httpURLConnection =(HttpURLConnection) url.openConnection();

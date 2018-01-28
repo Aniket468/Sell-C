@@ -46,6 +46,8 @@ import java.nio.charset.Charset;
 * Created by MNNIT on 1/11/2018.
 */
 
+// the java class of the login handling functionality
+
 public class Login_Activity extends AppCompatActivity {
 
     TextView tv;
@@ -179,6 +181,8 @@ public class Login_Activity extends AppCompatActivity {
             return flag1&flag2;
         }
 
+        // background class that is supposed to bring the user data from the server by making an HTTP request
+
      public class BackGroundClass extends AsyncTask<String,Void,Void>
     {
 
@@ -273,10 +277,8 @@ public class Login_Activity extends AppCompatActivity {
             else if(result.contains("Failed"))
             {
                 Log.d("Tag","Failed");
-                // sign_up.setEnabled(true);
                 Snackbar snackbar = Snackbar
                         .make(scrollView, "Authentication Error!!", Snackbar.LENGTH_LONG);
-                // Changing action button text color
                 View sbView = snackbar.getView();
                 TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
                 textView.setTextColor(Color.YELLOW);
